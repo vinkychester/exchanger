@@ -1,0 +1,162 @@
+[class^="exchange-icon-"], [class*="exchange-icon-"] {
+    display: inline-flex;
+}
+[class^="exchange-icon-"]:before, [class*="exchange-icon-"]:before {
+    content: '';
+    width: 25px;
+    height: 25px;
+    background-image: url('exchange-object-icons.svg');
+    background-position: -164px -36px;
+    background-repeat: no-repeat;
+}
+
+.exchange-icon-P24:before {
+    background-position: -10px -10px;
+}
+.exchange-icon-MONOB:before {
+    background-position: -36px -10px;
+}
+.exchange-icon-CARD:before {
+    background-position: -62px -10px;
+}
+.exchange-icon-ADVC:before {
+    background-position: -86px -10px;
+}
+.exchange-icon-MIRC:before {
+    background-position: -112px -10px;
+}
+.exchange-icon-QW:before {
+    background-position: -138px -10px;
+}
+.exchange-icon-QIWI:before {
+    background-position: -138px -10px;
+}
+.exchange-icon-WM:before {
+    background-position: -164px -10px;
+}
+.exchange-icon-MASTERCARD:before {
+    background-position: -10px -36px;
+}
+.exchange-icon-VISA:before {
+    background-position: -36px -36px;
+}
+.exchange-icon-YAM:before {
+    background-position: -62px -36px;
+}
+.exchange-icon-SEPA:before {
+    background-position: -86px -36px;
+}
+.exchange-icon-SWIFT:before {
+    background-position: -112px -36px;
+}
+.exchange-icon-CASH:before {
+    background-position: -138px -36px;
+}
+.exchange-icon-BTC:before {
+    background-position: -10px -62px;
+}
+.exchange-icon-ETH:before {
+    background-position: -36px -62px;
+}
+.exchange-icon-USDT:before {
+    background-position: -62px -62px;
+}
+.exchange-icon-TRX:before {
+    background-position: -87px -62px;
+}
+.exchange-icon-BCH:before {
+    background-position: -112px -62px;
+}
+.exchange-icon-BSV:before {
+    background-position: -138px -62px;
+}
+.exchange-icon-QTUM:before {
+    background-position: -164px -62px;
+}
+.exchange-icon-LTC:before {
+    background-position: -10px -87px;
+}
+.exchange-icon-ZEC:before {
+    background-position: -36px -87px;
+}
+.exchange-icon-XMR:before {
+    background-position: -62px -87px;
+}
+.exchange-icon-DASH:before {
+    background-position: -87px -87px;
+}
+.exchange-icon-WTC:before {
+    background-position: -112px -87px;
+}
+.exchange-icon-DOGE:before {
+    background-position: -138px -87px;
+}
+.exchange-icon-DCR:before {
+    background-position: -164px -87px;
+}
+.exchange-icon-WAVES:before {
+    background-position: -10px -112px;
+}
+.exchange-icon-XEM:before {
+    background-position: -36px -113px;
+}
+.exchange-icon-XLM:before {
+    background-position: -62px -113px;
+}
+.exchange-icon-ADA:before {
+    background-position: -87px -113px;
+}
+.exchange-icon-NEO:before {
+    background-position: -112px -113px;
+}
+.exchange-icon-ETC:before {
+    background-position: -138px -113px;
+}
+.exchange-icon-EOS:before {
+    background-position: -164px -113px;
+}
+.exchange-icon-ZIL:before {
+    background-position: -10px -139px;
+}
+.exchange-icon-HB:before {
+    background-position: -36px -139px;
+}
+.exchange-icon-ALGO:before {
+    background-position: -62px -139px;
+}
+.exchange-icon-BTT:before {
+    background-position: -87px -139px;
+}
+.exchange-icon-ONT:before {
+    background-position: -112px -139px;
+}
+.exchange-icon-XTZ:before {
+    background-position: -137px -139px;
+}
+.exchange-icon-NANO:before {
+    background-position: -164px -139px;
+}
+.exchange-icon-BNB:before {
+    background-position: -11px -164px;
+}
+.exchange-icon-HSR:before {
+    background-position: -36px -164px;
+}
+.exchange-icon-OGO:before {
+    background-position: -62px -164px;
+}
+.exchange-icon-IOT:before {
+    background-position: -87px -164px;
+}
+.exchange-icon-XZC:before {
+    background-position: -112px -164px;
+}
+.exchange-icon-ZRX:before {
+    background-position: -138px -164px;
+}
+.exchange-icon-XRP:before {
+    background-position: -163px -164px;
+}
+.exchange-icon-CRO:before {
+    background-position: -10px -191px;
+}

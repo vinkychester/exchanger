@@ -1,0 +1,8 @@
+{% extends 'emails/base_email_template.html.twig' %}
+
+{% block email_content %}
+<p style="margin:0 0 10px;padding:10px;border:1px solid #ffccc7;background:#ffe0e3;border-radius:7px;">
+    <span style="width:20px;height:20px;background:#ff4d4f;border-radius:50%;color:#ffffff;margin-right:5px;font-size:14px;text-align:center;display:inline-block;">!</span>
+    <b>{{ client.firstname }} {{ client.lastname }}</b>, у Вашей карты - <b>{{ card.cardNumber }}</b> истек срок годности!
+</p>
+{% endblock %}

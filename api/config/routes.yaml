@@ -1,0 +1,31 @@
+api_login_check:
+  path: /api/login_check
+
+api_google_check:
+  path: /api/google_check
+
+google_two_auth_secured_area:
+  path: /api/google_two_factor_check
+
+google_two_factor_confirm:
+  path: /api/google_two_factor_confirm
+
+gesdinet_jwt_refresh_token:
+  path: /api/token/refresh
+  controller: gesdinet.jwtrefreshtoken::refresh
+
+graphql_playground:
+  path: /api/docs/graphql_playground
+  controller: api_platform.graphql.action.graphql_playground
+
+base_url:
+  path:  /
+
+account_url:
+  path: /panel/account
+
+change-password:
+  path: /change-password/{token}
+
+email_confirm:
+  path: /email-confirm

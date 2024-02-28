@@ -1,0 +1,19 @@
+{% extends 'emails/base_email_template.html.twig' %}
+
+{% block email_content %}
+<p style="font-size:16px;font-weight:bold;margin:0 0 10px">
+    Здравствуйте!
+</p>
+<p style="margin:0 0 10px">
+    <b>{{ user.firstname }} {{ user.lastname }}</b>, Вы зарегистрированы на сайте
+    <a href="{{ url('base_url') }}"
+       style="color:#EC6110;text-decoration:none"
+       target="_blank">coin24.com.ua</a> в роли <b>администратора</b>
+</p>
+<p style="margin:0 0 10px">
+    Пароль для авторизации: <span style="color:#EC6110;">{{ user.generatedPassword }}</span>
+</p>
+<p style="margin:0 0 10px;padding:10px;border:1px solid #ffe58f;background:#fff8e4;border-radius:7px;">
+    <span style="width:20px;height:20px;background:#faad14;border-radius:50%;color:#ffffff;margin-right:5px;font-size:14px;text-align:center;display:inline-block;">!</span>  Никому не сообщайте ваш пароль!
+</p>
+{% endblock %}

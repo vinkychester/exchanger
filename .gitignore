@@ -1,0 +1,17 @@
+# dependencies
+/node_modules
+/docker/api/php/cronfiles/*.log
+/frontend/.env.development
+/frontend/.env.local
+/frontend/.env.production
+/frontend/package-lock.json
+/api/composer.lock
+/mercure/supervisord.pid
+/data/
+/api/storage/images/credit_card
+/api/storage/images/thumbnails/user/profile
+/api/.env.prod
+
+# misc
+.idea
+.DS_Store

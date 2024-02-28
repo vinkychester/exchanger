@@ -1,0 +1,138 @@
+{% extends 'emails/base_email_template.html.twig' %}
+
+{% block email_content %}
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;margin:0">
+        <tr>
+            <td style="padding:5px;background:#fff0e0;border:1px solid #ffffff">
+                <span style="font-size:11px;text-transform:uppercase;color:#666666;">
+                    Пользователь:
+                </span><br>
+                <a href="#" style="color:#EC6110;text-decoration:none">
+                    {{ requisition.client.email }}
+                </a>
+            </td>
+            <td style="padding:5px;background:#fff0e0;border:1px solid #ffffff">
+                <span style="font-size:11px;text-transform:uppercase;color:#666666;">
+                    Курс:
+                </span><br>
+                <span style="color:#EC6110;text-decoration:none">
+                    {#TODO for example: 26.30536678 UAH#}
+                    {{ requisition.course }} {{ requisition.pair.payment.currency.asset }}
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:5px;background:#fff0e0;border:1px solid #ffffff">
+                <span style="font-size:11px;text-transform:uppercase;color:#666666;">
+                    ID Заявки:
+                </span><br>
+                <span style="color:#EC6110;text-decoration:none">
+                    {% set token = requisition.id|split('-')[2] %}
+                    {#TODO for example: 47745826#}
+                    {{ token }}
+                </span>
+            </td>
+            <td style="padding:5px;background:#fff0e0;border:1px solid #ffffff">
+                <span style="font-size:11px;text-transform:uppercase;color:#666666;">
+                    Комиссия платежной системы:
+                </span><br>
+                <span style="color:#EC6110;text-decoration:none">
+                    {#TODO for example: 12 UAH#}
+                    {% if requisition.pair.type == 'purchase' %}
+                        {{ requisition.pair.in.constantPurchase }}
+                        {{ requisition.pair.in.exchangeObject.abbreviation }}
+                    {% else %}
+                        {{ requisition.pair.out.constantSelling }}
+                        {{ requisition.pair.out.exchangeObject.abbreviation }}
+                    {% endif %}
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:5px;background:#fff0e0;border:1px solid #ffffff">
+                <span style="font-size:11px;text-transform:uppercase;color:#666666;">
+                    Дата:
+                </span><br>
+                <span style="color:#EC6110;text-decoration:none">
+                    {#TODO for example: 25.01.2021#}
+                    {{ requisition.createdAt|date("d.m.Y") }}
+                </span>
+            </td>
+            <td style="padding:5px;background:#fff0e0;border:1px solid #ffffff">
+                <span style="font-size:11px;text-transform:uppercase;color:#666666;">
+                    Комиссия биржи:
+                </span><br>
+                <span style="color:#EC6110;text-decoration:none">
+                    {#TODO for example: 2 USDT#}
+                    {% if requisition.pair.type == 'purchase' %}
+                        {{ requisition.pair.out.constantPurchase }}
+                        {{ requisition.pair.out.exchangeObject.abbreviation }}
+                    {% else %}
+                        {{ requisition.pair.in.constantSelling }}
+                        {{ requisition.pair.in.exchangeObject.abbreviation }}
+                    {% endif %}
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:5px;background:#fff0e0;border:1px solid #ffffff" colspan="2">
+                <table width="100%">
+                    <tr>
+                        <td width="35px" style="padding-top:5px;">
+                            {#TODO: добавить тег к адресу изображения#}
+                            <img height="32"
+                                 src="{{ url('base_url') }}/email/payment-icons/{{ requisition.pair.out.exchangeObject.abbreviation }}.png"
+                                 alt="">
+                        </td>
+                        <td>
+                            <span style="font-size:11px;font-weight:600;text-transform:uppercase;color:#666666;">
+                                {% if requisition.pair.payment.currency.tag == 'CRYPTO' %}
+                                    Продажа
+                                {% else %}
+                                    Покупка
+                                {% endif %}
+                            </span><br>
+                            <span style="font-weight:600;">
+                                {#TODO for example: 5 USDT#}
+                                {{ requisition.outCount }} {{ requisition.pair.out.exchangeObject.abbreviation }}
+                            </span>
+                        </td>
+                        <td width="50%" style="text-align: right;">
+                            <span style="font-size:11px;font-weight:600;text-transform:uppercase;color:#666666;">
+                                Сумма платежа
+                            </span><br>
+                            <span style="font-weight:600;">
+                                {#TODO for example: 196.50658062124 UAH#}
+                                {{ requisition.inCount }} {{ requisition.pair.in.exchangeObject.abbreviation }}
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:2px 0;" colspan="2">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0;">
+                    <tr height="1">
+                        <td height="1" colspan="3">
+                            <div style="line-height:1px;height:1px;background-color:#EC6110" dir="auto"></div>
+                        </td>
+                    </tr>
+                    <tr height="48">
+                        <td align="right" style="color:rgb(102,102,102);font-size:10px;padding:0 15px 0 0;border-width:1px;border-color: #666666;">ИТОГО</td>
+                        <td width="1" style="background-color:#EC6110;width:1px"></td>
+                        <td width="90" align="right" style="width:120px;padding:0 5px 0 15px;font-size:15px;font-weight:600;white-space:nowrap;color:#EC6110;">
+                            {#TODO for example: 196.50658062124 UAH#}
+                            {{ requisition.inCount }} {{ requisition.pair.in.exchangeObject.abbreviation }}
+                        </td>
+                    </tr>
+                    <tr height="1">
+                        <td height="1" colspan="3">
+                            <div style="line-height:1px;height:1px;background-color:#EC6110" dir="auto"></div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

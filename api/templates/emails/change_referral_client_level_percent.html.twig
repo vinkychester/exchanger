@@ -1,0 +1,33 @@
+{% extends 'emails/base_email_template.html.twig' %}
+
+{% block email_content %}
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;margin:0">
+    <tr>
+        <td style="padding:5px;background:#fff0e0;border:1px solid #ffffff">
+            <span style="font-size:11px;text-transform:uppercase;color:#666666;">
+                Администратор:
+            </span><br>
+            <a href="mailto:{{ variables.adminEmail }}" style="color:#EC6110;text-decoration:none">{{ variables.adminEmail }}</a>
+        </td>
+        <td style="padding:5px;background:#fff0e0;border:1px solid #ffffff">
+            <span style="font-size:11px;text-transform:uppercase;color:#666666;">
+                Клиент:
+            </span><br>
+            <a href="mailto:{{ variables.clientEmail }}" style="color:#EC6110;text-decoration:none">{{ variables.clientEmail }}</a>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:5px;background:#fff0e0;border:1px solid #ffffff" colspan="2">
+            <span style="font-size:11px;text-transform:uppercase;color:#666666;">
+                Событие:
+            </span><br>
+            <p style="margin:0;">
+                Администратор "{{ variables.adminEmail }}" изменил реферальный уровень с <span style="color:#EC6110;">{{ variables.clientLevelName }}</span>
+                на <span style="color:#EC6110;">{{ variables.levelName }}</span>
+                с процентом <span style="color:#EC6110;">{{ variables.percent }}</span>,
+                пользователю "{{ variables.clientEmail }}".
+            </p>
+        </td>
+    </tr>
+</table>
+{% endblock %}

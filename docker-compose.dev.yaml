@@ -1,0 +1,60 @@
+version: "3"
+
+services:
+
+  frontend:
+    build:
+      dockerfile: ../docker/frontend/Dockerfile.prod
+    restart: always
+    command: serve -s build -l 3000
+    environment:
+      env_file: .env.production
+      NODE_ENV: development
+
+  api:
+    build:
+      dockerfile: ../docker/api/php/Dockerfile.dev
+    volumes:
+      - ./docker/api/php/cronfiles:/cronfiles
+      - ./docker/api/php/supervisor:/etc/supervisor.d
+      - ./docker/api/config/docker-opcache.ini:/usr/local/etc/php/conf.d/docker-opcache.ini
+      - ./docker/api/config/docker-xdebug.ini:/usr/local/etc/php/conf.d/docker-xdebug.ini
+    restart: unless-stopped
+    environment:
+      XDEBUG_CONFIG: "client_host=172.22.0.1"
+      XDEBUG_SESSION: 1
+      PHP_IDE_CONFIG: "serverName=Docker"
+
+  nginx:
+    restart: unless-stopped
+    volumes:
+      - ./docker/certs/dev:/etc/nginx/certs
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      NODE_ENV: dev
+      NGINX_HOST: ${NGINX_HOST_DEV}
+      NGINX_PORT: ${NGINX_PORT_DEV}
+      NGINX_CERT_CRT: ${NGINX_CERT_CRT_DEV}
+      NGINX_CERT_KEY: ${NGINX_CERT_KEY_DEV}
+      NGINX_MERCURE_IP: ${MERCURE_IPV4}
+
+  redis:
+    build:
+      context: ./docker/redis
+    container_name: exchanger-redis
+    hostname: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data:/data
+    restart: always
+    networks:
+      exchanger:
+        ipv4_address: ${REDIS_IPV4}
+
+volumes:
+  redis:
+  nginx:
+    driver: "local"

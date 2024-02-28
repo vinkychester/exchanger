@@ -1,0 +1,14 @@
+{% extends 'emails/base_email_template.html.twig' %}
+
+{% block email_content %}
+<p style="margin:0 0 10px">
+    <b>{{ user.firstname }} {{ user.lastname }}</b>, Вы успешно подтвердили свой аккаунт!
+</p>
+<p style="margin:0 0 10px">
+    <a href="{{ url('account_url') }}"
+       style="display:inline-block;border-radius:5px;background:#EC6110;background-image:-webkit-linear-gradient(90deg,#EA5400,#F28C3C);background-image:-moz-linear-gradient(90deg,#EA5400,#F28C3C);background-image:linear-gradient(90deg,#EA5400,#F28C3C);padding:10px 12px;color:#fff;font-family:Arial,sans-serif;font-weight:bold;font-size:13px;line-height:20px;text-decoration:none;text-align:center;text-transform:uppercase;letter-spacing:0.8px"
+       target="_blank">
+        Личный кабинет
+    </a>
+</p>
+{% endblock %}

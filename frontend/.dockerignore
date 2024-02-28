@@ -1,0 +1,14 @@
+**/*.log
+**/._*
+**/.DS_Store
+**/.gitignore
+**/.gitattributes
+**/Thumbs.db
+**/*.md
+**/.dockerignore
+Dockerfile*
+
+*.crt
+*.key
+node_modules
+**/node_modules

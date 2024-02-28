@@ -1,0 +1,8 @@
+{% extends 'emails/base_email_template.html.twig' %}
+
+{% block email_content %}
+<p style="padding:10px;border:1px solid #91d5ff;background:#e3f4ff;border-radius:7px;">
+    <span style="width:20px;height:20px;background:#1890ff;border-radius:50%;color:#ffffff;margin-right:5px;font-size:14px;text-align:center;display:inline-block;">i</span>
+    <b>{{ firstname }} {{ lastname }}</b>, у Вашей карты - <b>{{ card }}</b> истекает срок годности через 10 дней!
+</p>
+{% endblock %}

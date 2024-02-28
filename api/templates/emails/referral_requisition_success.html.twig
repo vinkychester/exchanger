@@ -1,0 +1,11 @@
+{% extends 'emails/base_email_template.html.twig' %}
+
+{% block email_content %}
+    <p style="font-size:16px;font-weight:bold;margin:0 0 10px">
+        Здравствуйте!
+    </p>
+    <p style="margin:0 0 10px">
+        <b>{{ client.firstname }} {{ client.lastname }}</b>, заявка на вывод реферальных накоплений в сумме
+        {{ requisition.amount }} USDT - выполнена
+    </p>
+{% endblock %}

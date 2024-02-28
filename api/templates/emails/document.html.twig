@@ -1,0 +1,8 @@
+{% extends 'emails/base_email_template.html.twig' %}
+
+{% block email_content %}
+<p style="margin:0 0 10px;padding:10px;border:1px solid #b7eb8f;background:#eeffe4;border-radius:7px;">
+    <span style="width:20px;height:20px;background:#52c41b;border-radius:50%;color:#ffffff;margin-right:5px;font-size:14px;text-align:center;display:inline-block;">!</span> Документы верифицированы!
+</p>
+<p> Уважаемый(-ая) <b>{{ client.name }} {{ client.surname }}</b>, Ваши документы верифицированы. Теперь Вы можете подавать заявки и совершать обмены по самому выгодному для Вас курсу.
+{% endblock %}

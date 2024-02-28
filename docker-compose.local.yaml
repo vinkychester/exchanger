@@ -1,0 +1,249 @@
+version: "3"
+
+services:
+
+  frontend:
+    build:
+      dockerfile: ../docker/frontend/Dockerfile.dev
+    command: npm start
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    volumes:
+      - ./frontend:${FRONTEND_DIRECTORY}
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - MERCURE_PUBLISH_URL=${MERCURE_PURL_LOCAL}
+
+  prometheus:
+    image: prom/prometheus:v2.25.0
+    container_name: prometheus
+    volumes:
+      - ./monitoring/prometheus:/etc/prometheus
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+    expose:
+      - 9090
+    ports:
+      - 8086:9090
+    networks:
+      exchanger:
+        ipv4_address: ${PROMETHEUS_IPV4}
+    labels:
+      org.label-schema.group: "monitoring"
+
+  grafana:
+    image: grafana/grafana:6.7.2
+    container_name: grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    restart: unless-stopped
+    expose:
+      - 3000
+    ports:
+      - 8082:3000
+    networks:
+      exchanger:
+        ipv4_address: ${GRAPHANA_IPV4}
+    labels:
+      org.label-schema.group: "monitoring"
+
+
+  node-exporter:
+    image: prom/node-exporter:v1.1.1
+    container_name: node-exporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
+    restart: unless-stopped
+    networks:
+      exchanger:
+        ipv4_address: ${NODEXP_IPV4}
+    labels:
+      org.label-schema.group: "monitoring"
+
+  cadvisor:
+    image: 'google/cadvisor:latest'
+    container_name: cadvisor
+    volumes:
+          - /:/rootfs:ro
+          - /var/run:/var/run:ro
+          - /sys:/sys:ro
+          - /var/lib/docker/:/var/lib/docker:ro
+          - /dev/disk:/dev/disk/:ro
+    ports:
+        - '8083:8080'
+    networks:
+      exchanger:
+        ipv4_address: ${CADV_IPV4}
+    labels:
+      org.label-schema.group: "monitoring"
+
+  mysql-exporter:
+    image: prom/mysqld-exporter
+    container_name: mysql-exporter
+    expose:
+      - 9104
+    ports:
+      - 8089:9104
+    volumes:
+      - ./monitoring/mysql-exporter/.my.cnf:/root/.my.cnf
+    environment:
+      - DATA_SOURCE_NAME=root:root@(172.22.0.8:3306)/
+      - collect.info_schema.tablestats=true
+      - collect.info_schema.userstats=true
+      - collect.info_schema.query_response_time=true
+      - collect.auto_increment.columns=true
+      - collect.binlog_size=true
+      - collect.perf_schema.eventsstatements=true
+      - collect.perf_schema.eventswaits=true
+      - collect.perf_schema.file_events=true
+      - collect.perf_schema.indexiowaits=true
+      - collect.perf_schema.tableiowaits=true
+      - collect.perf_schema.tablelocks=true
+    depends_on:
+      - mysql
+    networks:
+      exchanger:
+        ipv4_address: ${MSQLEXP_IPV4}
+    labels:
+      org.label-schema.group: "monitoring"
+
+  pt:
+    image: yoku0825/percona-toolkit
+
+  api:
+    build:
+      dockerfile: ../docker/api/php/Dockerfile.local
+    volumes:
+      - ./docker/api/php/cronfiles:/cronfiles
+      - ./docker/api/php/supervisor:/etc/supervisor.d
+      - ./docker/api/php/config/docker-opcache.ini:/usr/local/etc/php/conf.d/docker-opcache.ini
+      - ./docker/api/php/config/docker-xdebug.ini:/usr/local/etc/php/conf.d/docker-xdebug.ini
+    restart: unless-stopped
+    environment:
+      XDEBUG_CONFIG: "client_host=172.22.0.1"
+      XDEBUG_SESSION: 1
+      PHP_IDE_CONFIG: "serverName=Docker"
+    depends_on:
+      - mysql
+
+  nginx:
+    restart: unless-stopped
+    volumes:
+      - ./docker/nginx/conf.d/status.conf:/etc/nginx/conf.d/status.conf
+      - ./docker/certs/local:/etc/nginx/certs
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      NODE_ENV: dev
+      NGINX_HOST: ${NGINX_HOST_LOCAL}
+      NGINX_PORT: ${NGINX_PORT_LOCAL}
+      NGINX_CERT_CRT: ${NGINX_CERT_CRT_LOCAL}
+      NGINX_CERT_KEY: ${NGINX_CERT_KEY_LOCAL}
+      NGINX_MERCURE_IP: ${MERCURE_IPV4}
+    networks:
+      exchanger:
+        ipv4_address: ${NGINX_IPV4}
+    labels:
+      org.label-schema.group: "monitoring"
+
+
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:0.4.2
+    container_name: nginx-exporter
+    restart: unless-stopped
+    environment:
+      - SCRAPE_URI=http://172.22.0.11:8092/nginx_status
+      - NGINX_RETRIES=10
+    ports:
+      - 9113:9113
+    networks:
+      exchanger:
+        ipv4_address: ${NGEXP_IPV4}
+    labels:
+      org.label-schema.group: "monitoring"
+    #mem_limit: 128m      # for docker-compose v2 only
+    #mem_reservation: 64m # for docker-compose v2 only
+    logging:
+        driver: "json-file"
+        options:
+          max-size: "5m"
+
+  mysql:
+    image: mysql:8.0.20
+    container_name: exchanger-mysql
+    restart: unless-stopped
+    volumes:
+      - mysql:/var/lib/mysql
+    ports:
+      - 13306:3306
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} #login:root password:root
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    hostname: mysql.docker
+    networks:
+      exchanger:
+        ipv4_address: ${MYSQL_IPV4}
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: exchanger-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - 8080:80
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: ${PHPMYADMIN_ROOT_PASSWORD}
+      MYSQL_USER: ${PHPMYADMIN_MYSQL_USER}
+      MYSQL_PASSWORD: ${PHPMYADMIN_MYSQL_PASSWORD}
+      UPLOAD_LIMIT: 200M
+    networks:
+      exchanger:
+        ipv4_address: ${PHPMYADMIN_IPV4}
+
+  redis:
+    build:
+      context: ./docker/redis
+    container_name: exchanger-redis
+    hostname: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data:/data
+    restart: always
+    networks:
+      exchanger:
+        ipv4_address: ${REDIS_IPV4}
+
+volumes:
+  prometheus_data:
+  grafana_data:
+  nginx:
+  redis:
+  mysql:
+    driver: "local"

@@ -1,0 +1,50 @@
+[class^="merchant-icon-"], [class*="merchant-icon-"] {
+  display: inline-flex;
+}
+
+[class^="merchant-icon-"]:before, [class*="merchant-icon-"]:before {
+  content: '';
+  background-image: url('merchant-sprite.svg');
+  background-repeat: no-repeat;
+}
+
+.merchant-icon-visa:before {
+  width: 78px;
+  height: 27px;
+  background-position: -1px -5px;
+}
+.merchant-icon-visa-alt:before {
+  width: 78px;
+  height: 27px;
+  background-position: -1px -48px;
+}
+.merchant-icon-visa-secure:before {
+  width: 40px;
+  height: 35px;
+  background-position: -84px -1px;
+}
+.merchant-icon-visa-secure-alt:before {
+  width: 40px;
+  height: 35px;
+  background-position: -84px -43px;
+}
+.merchant-icon-mastercard:before {
+  width: 46px;
+  height: 37px;
+  background-position: -129px -1px;
+}
+.merchant-icon-mastercard-alt:before {
+  width: 46px;
+  height: 37px;
+  background-position: -129px -43px;
+}
+.merchant-icon-mastercard-id-check:before {
+  width: 36px;
+  height: 37px;
+  background-position: -179px -1px;
+}
+.merchant-icon-mastercard-id-check-alt:before {
+  width: 36px;
+  height: 37px;
+  background-position: -179px -43px;
+}

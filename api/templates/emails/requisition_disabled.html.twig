@@ -1,0 +1,13 @@
+{% extends 'emails/base_email_template.html.twig' %}
+
+{% block email_content %}
+    <p style="font-size:16px;font-weight:bold;margin:0 0 10px">
+        Здравствуйте!
+    </p>
+    <p style="margin:0 0 10px">
+        <b>{{ client.firstname }} {{ client.lastname }}</b>, заявка
+        {% set token = requisition.id|split('-')[0] %} #<span style="text-transform:uppercase;">{{ token }}</span> закрыта системой, так как не была оплачена. По
+                                                           истечению 48-и часов, все неоплаченные заявки закрываются
+                                                           системой автоматически.
+    </p>
+{% endblock %}

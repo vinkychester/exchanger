@@ -1,0 +1,17 @@
+ARG NODE_VERSION=14.4.0
+
+FROM node:${NODE_VERSION}-alpine3.10
+
+WORKDIR /var/www/exchanger/frontend
+
+COPY package*.json ./
+#COPY *.env* ./
+#RUN echo -e "REACT_APP_GOOGLE_CLIENT_ID=789644364250-6nrghrhkupaugi4j34usj75e5h9gnph6.apps.googleusercontent.com" > /var/www/coin24/frontend/.env
+
+
+RUN npm cache clean -f
+RUN npm install
+#RUN npm install -g react-scripts
+RUN npm audit fix
+
+COPY . .

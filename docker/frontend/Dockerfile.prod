@@ -1,0 +1,18 @@
+FROM node:14.4.0-alpine3.10
+
+WORKDIR /var/www/exchanger/frontend
+
+COPY package*.json ./
+#COPY *.env* ./
+#RUN echo -e "REACT_APP_GOOGLE_CLIENT_ID=789644364250-6nrghrhkupaugi4j34usj75e5h9gnph6.apps.googleusercontent.com" > /var/www/coin24/frontend/.env
+
+
+
+COPY . .
+
+RUN npm install
+RUN npm install -g react-scripts
+
+RUN npm run build
+
+RUN npm install -g serve

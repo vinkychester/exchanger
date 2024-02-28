@@ -1,0 +1,50 @@
+[class^="profit-icon-"], [class*="profit-icon-"] {
+  display: inline-flex;
+}
+
+[class^="profit-icon-"]:before, [class*="profit-icon-"]:before {
+  content: '';
+  background-image: url('profit-sprite.svg');
+  background-repeat: no-repeat;
+}
+
+.profit-icon-safety:before {
+  width: 50px;
+  height: 61px;
+  background-position: -12px -9px;
+}
+.profit-icon-profit:before {
+  width: 61px;
+  height: 60px;
+  background-position: -71px -9px;
+}
+.profit-icon-legally:before {
+  width: 61px;
+  height: 61px;
+  background-position: -141px -8px;
+}
+.profit-icon-info:before {
+  width: 61px;
+  height: 61px;
+  background-position: -211px -8px;
+}
+.profit-icon-referral:before {
+  width: 60px;
+  height: 37px;
+  background-position: -7px -91px;
+}
+.profit-icon-confidentially:before {
+  width: 46px;
+  height: 60px;
+  background-position: -79px -79px;
+}
+.profit-icon-functionally:before {
+  width: 61px;
+  height: 61px;
+  background-position: -141px -79px;
+}
+.profit-icon-partnership:before {
+  width: 60px;
+  height: 37px;
+  background-position: -212px -91px;
+}

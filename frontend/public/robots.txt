@@ -1,0 +1,13 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+Disallow: /registration
+Disallow: /login
+Disallow: /contacts
+Disallow: /api
+Disallow: /_profiler/
+Disallow: /_wdt/
+
+Host: coin24.com.ua
+Sitemap: https://coin24.com.ua/sitemap.xml

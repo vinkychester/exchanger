@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    Author: {{ review.client.firstname }} {{ review.client.lastname }}<br />
+    Email: {{ review.client.email }}<br />
+    {{ review.client.imageUrl }}
+    Photo: <img src="{{ review.client.imageUrl }}" width="100"><br />
+    <p>
+        {{ review.message }}
+    </p>
+{% endblock %}
+{#{% block action %}#}
+{#    <spacer size="16"></spacer>#}
+{#    <button href="{{ url('review_comment', { id: comment.id })#}
+{#    }}">Accept</button>#}
+{#    <button href="{{ url('review_comment', { id: comment.id, reject: true })#}
+{#    }}">Reject</button>#}
+{#{% endblock %}#}

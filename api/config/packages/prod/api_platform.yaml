@@ -1,0 +1,14 @@
+api_platform:
+  # Enable the entrypoint.
+#  enable_entrypoint: false
+
+#   Enable the docs.
+  enable_docs: false
+
+  graphql:
+    graphiql:
+      # Enabled by default with installed webonyx/graphql-php and Twig.
+      enabled: false
+    graphql_playground:
+      # Enabled by default with installed webonyx/graphql-php and Twig.
+      enabled: false

@@ -1,0 +1,30 @@
+[class^="social-icon-"], [class*="social-icon-"] {
+  display: inline-flex;
+}
+
+[class^="social-icon-"]:before, [class*="social-icon-"]:before {
+  content: '';
+  width: 31px;
+  height: 31px;
+  background-image: url('social-sprite.svg');
+  background-repeat: no-repeat;
+}
+
+.social-icon-facebook:before {
+  background-position: -4px -4px;
+}
+.social-icon-vk:before {
+  background-position: -39px -4px;
+}
+.social-icon-twitter:before {
+  background-position: -74px -4px;
+}
+.social-icon-telegram:before {
+  background-position: -109px -4px;
+}
+.social-icon-ok:before {
+  background-position: -144px -4px;
+}
+.social-icon-instagram:before {
+  background-position: -179px -4px;
+}

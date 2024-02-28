@@ -1,0 +1,15 @@
+{% extends 'emails/base_email_template.html.twig' %}
+
+{% block email_content %}
+    <p style="font-size:16px;font-weight:bold">
+        <b>
+           Уважаемые пользователи!
+        </b>
+    </p>
+    <p>
+        {{ message | raw }}
+    </p>
+    {% if file %}
+        <img src="{{ url('base_url') }}files/mailing/{{ file }}" alt="Logo" width="100%" height="auto" style="margin-top:20px;">
+    {% endif %}
+{% endblock %}

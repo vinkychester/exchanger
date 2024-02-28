@@ -1,0 +1,9 @@
+{% extends 'emails/base_email_template.html.twig' %}
+
+{% block email_content %}
+    <p style="margin:0 0 10px">Уважаемый(-ая)  <b>{{ client.firstname }} {{ client.lastname }}</b>, Ваша карта - <b>{{ card.cardNumber }}</b> верифицирована !</p>
+    <p style="padding:10px;border:1px solid #91d5ff;background:#e3f4ff;border-radius:7px;">
+        <span style="width:20px;height:20px;background:#1890ff;border-radius:50%;color:#ffffff;margin-right:5px;font-size:14px;text-align:center;display:inline-block;">i</span>
+        Обращаем Ваше внимание на то, что процедуру верификации необходимо проводить для каждой новой карты.
+    </p>
+{% endblock %}
